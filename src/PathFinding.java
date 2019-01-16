@@ -22,6 +22,7 @@ public class PathFinding {
             this.y = y;
         }
 
+        // Easier than overriding both hash and equals to use in visited set
         @Override
         public String toString() {
             return "(" + x + ", " + y + ")";
