@@ -30,6 +30,29 @@ public class PathFinding {
     }
 
     /**
+     * Recursively find whether there is a way from start to end, marking each visited point in
+     * the grid with a -1
+     * @param grid
+     * @param start
+     * @param end
+     * @return
+     */
+    public static boolean pathExistsDestructive(int[][] grid, Node start, Node end) {
+        grid[start.y][start.x] = -1;
+        if (start.x == end.x && start.y == end.y) {
+            return true;
+        }
+        List<Node> neighbors = getNeighbors(grid, start);
+        for (Node neighbor : neighbors) {
+            if (pathExistsDestructive(grid, neighbor, end)) {
+                return true;
+            }
+        }
+        // no valid neighbors
+        return false;
+    }
+
+    /**
      * Find whether a path exists from point start to end on a grid
      * using depth first search
      */
@@ -218,5 +241,8 @@ public class PathFinding {
         System.out.println(pathExistsBFS(grid2, start, end));
         System.out.println(shortestPathLength(grid2, start, end));
         System.out.println(shortestPath(grid2, start, end));
+
+        System.out.println(pathExistsDestructive(grid1, start, end));
+        System.out.println(pathExistsDestructive(grid2, start, end));
     }
 }
